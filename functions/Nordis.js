@@ -26,7 +26,7 @@ exports.Nordis = async function (context, event, callback) {
 
         console.log("count : " + count);
 
-        const StdData = { "Counter": count, "FullName": "INS20 TEST", "PhoneNumber": "765-749-8823", "FPMTAMT": "15010.61", "FStartDate": "2021-06-10", "PMTAMT": "15010.60", "FACSAcct": "27218371", "FREQ": "WEK", "NOP": "4", "StartDate": "2021-06-10", "ZIP": "33331", "ClientAcct": "656523114", "CcAccountNumber": "4111111111111111", "CardName": "INS20 TEST", "CcExpirationDate": "0326", "CcCVV": "123", "ZipCd": "33331", "Address": "", "City": "", "State": "", "Amt": "15010.60", "PaymentDate": "0001-01-01T00:00:00" };
+        const StdData = {"Counter":count,"FullName":"INS20 TEST","PhoneNumber":"765-749-8823","FPMTAMT":"0","FStartDate":"2021-06-08","PMTAMT":"10007.07","FACSAcct":"27218371","FREQ":"WEK","NOP":"3","StartDate":"2021-06-08","ZIP":"33331","ClientAcct":"656523114","CcAccountNumber":"4111111111111111","CardName":"INS20 TEST","CcExpirationDate":"0326","CcCVV":"123","ZipCd":"33331","Address":"","City":"","State":"","Amt":"10007.07","PaymentDate":""};
 
         var Data;
 
@@ -134,7 +134,7 @@ exports.Nordis = async function (context, event, callback) {
         else {
             Say = "We need to transfer you to an Agent";
             Remember.Agent = "true";
-            Redirect = "task://Agent";
+            //Redirect = "task://Agent";
         }
         //var response;
         // if (bResult === true) {

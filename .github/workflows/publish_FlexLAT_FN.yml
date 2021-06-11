@@ -8,7 +8,7 @@ on:
       name:
         description: 'Bot Unique Name'
         required: true
-        default: 'Credit-Card-Payment'
+        default: 'NordisPaymentAPI-EBO'
 
 jobs:
   build:

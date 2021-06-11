@@ -8,7 +8,7 @@ on:
       name:
         description: 'Bot Unique Name'
         required: true
-        default: 'Credit-Card-Payment'
+        default: 'NordisPaymentAPI-EBO'
 
 jobs:
   build:
@@ -33,6 +33,6 @@ jobs:
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID_FlexLat }}
           TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY_SID_FlexLat }}
           TWILIO_API_SECRET: ${{ secrets.TWILIO_API_SECRET_FlexLat }} 
-        run: twilio autopilot:update --schema model/schema_FlexLAT.json --unique-name Credit-Card-Payment
+        run: twilio autopilot:update --schema model/schema_FlexLAT.json --unique-name NordisPaymentAPI-EBO
        
       
