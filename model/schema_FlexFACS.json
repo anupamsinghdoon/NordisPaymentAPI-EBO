@@ -1,13 +1,13 @@
 {
-    "friendlyName" : "Payment process though credit card",
+    "friendlyName" : "NordisPaymentAPI-EBO",
     "logQueries" : true,
-    "uniqueName" : "Credit-Card-Payment",
+    "uniqueName" : "NordisPaymentAPI-EBO",
     "defaults" : {
         "defaults" : {
-            "assistant_initiation" : "task://greeting",
+            "assistant_initiation" : "task://Nordis",
             "fallback" : "task://fallback",
             "collect" : {
-                "validate_on_failure" : "task://fallback"
+                "validate_on_failure" : "task://collect_fallback"
             }
         }
     },
@@ -18,7 +18,11 @@
                     "on_failure" : {
                         "repeat_question" : false,
                         "messages" : [
-                            { "say" : { "speech" : "" } },
+                            {
+                                "say" : {
+                                    "speech" : "I didn't get that. What did you say?"
+                                }
+                            },
                             {
                                 "say" : {
                                     "speech" : "I still didn't catch that. Please repeat."
@@ -32,11 +36,11 @@
                         ]
                     },
                     "on_success" : { "say" : { "speech" : "" } },
-                    "max_attempts" : 1
+                    "max_attempts" : 0
                 }
             },
             "voice" : {
-                "say_voice" : "Polly.Joanna-Neural"
+                "say_voice" : "Polly.Matthew"
             },
             "name" : ""
         }
@@ -44,130 +48,19 @@
     "fieldTypes" : [],
     "tasks" : [
         {
-            "uniqueName" : "goodbye",
-            "actions" : {
-                "actions" : [
-                    {
-                        "say" : "Thank you! Please reach out again if you need anything. Goodbye."
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "no thanks"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "that's all for today"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "that is all thank you"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "that would be all"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "no thanks"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "goodbye"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "go away"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "stop talking"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "that would be all thanks"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "no"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "that's all"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "cancel"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "see ya"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "goodnight"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "stop"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "bye bye"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "good bye"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "collect_cvv_yes_no",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
-        },
-        {
-            "uniqueName" : "collect_expiration_date_yes_no",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
-        },
-        {
-            "uniqueName" : "Bot_success",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
-        },
-        {
             "uniqueName" : "dummy",
             "actions" : {
                 "actions" : [
                     {
                         "say" : {
-                            "speech" : "Please hold the line while I transfer you to an agent."
+                            "speech" : "Your payment has been posted"
                         }
+                    },
+                    {
+                        "remember" : { "Agent" : false }
+                    },
+                    {
+                        "redirect" : "task://dummyIteration"
                     }
                 ]
             },
@@ -180,57 +73,11 @@
             ]
         },
         {
-            "uniqueName" : "check_cc",
+            "uniqueName" : "Nordis",
             "actions" : {
                 "actions" : [
                     {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
-        },
-        {
-            "uniqueName" : "collect_expiration_date",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [
-                {
-                    "uniqueName" : "exp_date",
-                    "fieldType" : "Twilio.DATE"
-                }
-            ],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{exp_date}"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "check_exp_date",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
-        },
-        {
-            "uniqueName" : "collect_cvv",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
+                        "redirect" : "https://nordispaymentapi-ebo-4223-dev.twil.io/index"
                     }
                 ]
             },
@@ -238,234 +85,9 @@
             "samples" : [
                 {
                     "language" : "en-US",
-                    "taggedText" : "cvv"
+                    "taggedText" : "Nordis"
                 }
             ]
-        },
-        {
-            "uniqueName" : "check_cvv",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
-        },
-        {
-            "uniqueName" : "agent_transfer",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "agent"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "Operator"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "I'd like to talk to an agent"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "transfer me to an agent"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "I want to to talk to an agent"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "I want to talk to an operator"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "Please connect me to an agent"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "talk to somebody"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "I want to talk to somebody"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "Let me connect to an agent"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "I prefer to talk to an agent"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "yes_no",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [
-                {
-                    "uniqueName" : "yes_no",
-                    "fieldType" : "Twilio.YES_NO"
-                }
-            ],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} it is incorrect"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} it is correct"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} that's wrong"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} that's right"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} thank you"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} please"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} that's incorrect"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} that't not it"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} that's not correct"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no} that's it"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "{yes_no}"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "greeting",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    },
-                    {
-                        "remember" : {
-                            "payment_method" : "credit card"
-                        }
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "good morning"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "heya"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "Hi"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hi there"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "good afternoon"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "what'us up"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hello"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hi there."
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hi!"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hey"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "Hello."
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "what can you do"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "yo"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "what do you do"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "sup"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "whatsup"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "fallback",
-            "actions" : {
-                "actions" : [
-                    {
-                        "redirect" : "https://credit-card-payment-6564-dev.twil.io/index"
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
         },
         {
             "uniqueName" : "collect_fallback",
@@ -479,9 +101,103 @@
             },
             "fields" : [],
             "samples" : []
+        },
+        {
+            "uniqueName" : "fallback",
+            "actions" : {
+                "actions" : [
+                    {
+                        "say" : "I'm sorry didn't quite get that. Please say that again."
+                    },
+                    { "listen" : true }
+                ]
+            },
+            "fields" : [],
+            "samples" : []
+        },
+        {
+            "uniqueName" : "goodbye",
+            "actions" : {
+                "actions" : [
+                    {
+                        "say" : "Thank you! Please reach out again if you need anything. Goodbye."
+                    }
+                ]
+            },
+            "fields" : [],
+            "samples" : [
+                {
+                    "language" : "en-US",
+                    "taggedText" : "good bye"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "bye bye"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "that's all"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "stop"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "goodnight"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "see ya"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "no thanks"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "stop talking"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "goodbye"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "no"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "go away"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "that would be all"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "cancel"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "that would be all thanks"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "no thanks"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "that's all for today"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "that is all thank you"
+                }
+            ]
         }
     ],
     "modelBuild" : {
-        "uniqueName" : "Built on 02-15-2021 04:11:12"
+        "uniqueName" : "NordisPaymentAPI-EBO_11-6-2021_1.54.44am"
     }
 }
