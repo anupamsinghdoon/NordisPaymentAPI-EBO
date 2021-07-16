@@ -77,7 +77,7 @@
             "actions" : {
                 "actions" : [
                     {
-                        "redirect" : "https://nordispaymentapi-ebo-2044-dev.twil.io/index"
+                        "redirect" : "https://nordispaymentapi-ebo-9234-dev.twil.io/index"
                     }
                 ]
             },
