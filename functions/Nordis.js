@@ -30,7 +30,7 @@ exports.Nordis = async function (context, event, callback) {
 
         var Data;
 
-        const URL = "https://pecodeviis:Test123!@pecodev.convergentusa.com/Convergent_EBO_Transactis_IVR/Api/SingleNordisPayment";// Memory.URL;
+        const URL = Memory.URL; //"https://pecodeviis:Test123!@pecodev.convergentusa.com/Convergent_EBO_Transactis_IVR/Api/SingleNordisPayment";// Memory.URL;
         const Tout = Memory.timeout | 30000;
 
         if (Memory.RequestBody != undefined) {
